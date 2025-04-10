@@ -1,4 +1,4 @@
-# Byakugan - API Security Scanner
+# By4kug4n - API Security Scanner | Công cụ quét bảo mật API
 
 <p align="center">
   <img src="media/byakugan-logo.svg" alt="Byakugan Logo" width="200"/>
@@ -11,60 +11,62 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"/>
 </p>
 
-Byakugan là một công cụ quét lỗ hổng API hiện đại được phát triển với Python và Go, hỗ trợ đa dạng các định dạng API và chiến lược phát hiện lỗ hổng.
+By4kug4n is a modern API security scanning tool developed with Python and Go, supporting various API formats and vulnerability detection strategies.
 
-## Tính năng chính
+By4kug4n là một công cụ quét lỗ hổng API hiện đại được phát triển với Python và Go, hỗ trợ đa dạng các định dạng API và chiến lược phát hiện lỗ hổng.
 
-- **Hỗ trợ đa định dạng API**
+## Key Features | Tính năng chính
+
+- **Multi-format API Support | Hỗ trợ đa định dạng API**
   - OpenAPI/Swagger (2.0, 3.0, 3.1)
   - Postman Collections
   - GraphQL
   - SOAP/WSDL
-  - gRPC
 
-- **Engine quét mạnh mẽ**
-  - Quét đồng thời nhiều endpoints
-  - Tự động phát hiện injection points
-  - Rate limiting và retry thông minh
-  - Worker pool tối ưu
-  - Proxy rotation tích hợp
+- **Powerful Scanning Engine | Engine quét mạnh mẽ**
+  - Concurrent endpoint scanning | Quét đồng thời nhiều endpoints
+  - Automatic injection point detection | Tự động phát hiện injection points
+  - Smart rate limiting and retry | Rate limiting và retry thông minh
+  - Optimized worker pool | Worker pool tối ưu
+  - Built-in proxy rotation | Proxy rotation tích hợp
 
-- **Rule Engine linh hoạt**
+- **Flexible Rule Engine | Rule Engine linh hoạt**
   - Rule-based scanning
   - Custom rule development
   - Rule profiles (OWASP API Top 10, PCI-DSS)
   - Plugin architecture
 
-- **Xác thực đa dạng**
-  - OAuth 2.0 (tất cả flows)
+- **Diverse Authentication | Xác thực đa dạng**
+  - OAuth 2.0 (all flows | tất cả flows)
   - JWT
   - API Keys
   - Basic Auth
   - Custom auth methods
 
-- **Báo cáo chi tiết**
-  - HTML/PDF reports
+- **Detailed Reporting | Báo cáo chi tiết**
   - JSON/CSV exports
-  - SARIF format
-  - Evidence collection
-  - Remediation guidance
 
-## Cài đặt
 
-### Yêu cầu
+## Installation | Cài đặt
+
+### Requirements | Yêu cầu
 
 - Python 3.9+
 - Go 1.18+
-- Docker (tùy chọn)
+- Docker (optional | tùy chọn)
 
-### Cài đặt từ source
+### Source Installation | Cài đặt từ source
 
 ...
 
-## Contributing
+## Contributing | Đóng góp
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute.
 
 Xem [CONTRIBUTING.md](CONTRIBUTING.md) để biết thêm chi tiết về cách đóng góp.
 
-## License
+## License | Giấy phép
+
+This project is released under the [MIT License](LICENSE).
 
 Project được phát hành dưới [MIT License](LICENSE).
