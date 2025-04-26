@@ -1,0 +1,20 @@
+{
+    "task_id": "SQLI-SCAN-001",
+    "success": true,
+    "findings": [
+      {
+        "id": "SQLI-FINDING-002",
+        "rule_id": "SQLI-001", 
+        "severity": "HIGH",
+        "evidence": {
+          "data": {
+            "request": "POST /users/login HTTP/1.1\nContent-Type: application/json\n\n{\"username\":\"admin' --\",\"password\":\"test123\"}",
+            "response": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"role\":\"admin\",\"authenticated\":true}",
+            "injection_point": "body.username",
+            "payload": "admin' --"
+          },
+          "description": "SQL injection vulnerability detected. Authentication bypass successful using comment sequence."
+        }
+      }
+    ]
+  }

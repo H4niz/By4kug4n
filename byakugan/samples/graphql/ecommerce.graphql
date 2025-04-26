@@ -1,0 +1,95 @@
+type Query {
+  products(
+    first: Int
+    after: String
+    category: String
+  ): ProductConnection!
+  
+  product(id: ID!): Product
+  
+  cart(id: ID!): Cart
+}
+
+type Mutation {
+  addToCart(
+    cartId: ID!
+    productId: ID!
+    quantity: Int!
+  ): CartItem!
+  
+  createOrder(
+    cartId: ID!
+    input: OrderInput!
+  ): Order!
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String
+  price: Float!
+  category: Category!
+  inventory: Int!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  products: [Product!]!
+}
+
+type Cart {
+  id: ID!
+  items: [CartItem!]!
+  total: Float!
+}
+
+type CartItem {
+  id: ID!
+  product: Product!
+  quantity: Int!
+  subtotal: Float!
+}
+
+type Order {
+  id: ID!
+  items: [OrderItem!]!
+  total: Float!
+  status: OrderStatus!
+  createdAt: String!
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+input OrderInput {
+  shippingAddress: AddressInput!
+  billingAddress: AddressInput
+  paymentMethod: PaymentMethodInput!
+}
+
+input AddressInput {
+  street: String!
+  city: String!
+  state: String!
+  country: String!
+  zipCode: String!
+}
+
+input PaymentMethodInput {
+  type: PaymentType!
+  cardNumber: String
+  expiryMonth: Int
+  expiryYear: Int
+  cvv: String
+}
+
+enum PaymentType {
+  CREDIT_CARD
+  PAYPAL
+  CRYPTO
+}

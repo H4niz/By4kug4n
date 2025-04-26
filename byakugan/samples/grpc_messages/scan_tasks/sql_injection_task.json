@@ -1,0 +1,80 @@
+{
+  "id": "SQLI-SCAN-001",
+  "target": {
+    "url": "https://api.example.com/users/login",
+    "method": "POST",
+    "protocol": "https"
+  },
+  "auth_context": {
+    "type": "bearer",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "expires_at": 1682956800,
+    "headers": {
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "X-API-Key": "test-api-key"
+    }
+  },
+  "payload": {
+    "headers": {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "query_params": {
+      "role": "admin"
+    },
+    "body": "eyJ1c2VybmFtZSI6InRlc3QiLCJwYXNzd29yZCI6InRlc3QxMjMifQ==",
+    "insertion_points": [
+      {
+        "location": "body.username",
+        "type": "sql_injection",
+        "payloads": [
+          "' OR '1'='1",
+          "admin' --",
+          "1' UNION SELECT * FROM users--"
+        ]
+      }
+    ]
+  },
+  "validation": {
+    "success_conditions": {
+      "status_codes": [200, 500],
+      "response_patterns": [
+        "error in your SQL syntax",
+        "mysql_error",
+        "ORA-"
+      ]
+    },
+    "evidence_collection": {
+      "save_request": true,
+      "save_response": true,
+      "screenshot": false
+    }
+  },
+  "rule_context": {
+    "rule_id": "SQLI-001",
+    "severity": "HIGH",
+    "category": "SQL Injection"
+  },
+  "config": {
+    "timeout": 30,
+    "max_retries": 3,
+    "rate_limit": 10,
+    "follow_redirects": true,
+    "headers": {
+      "User-Agent": "Byakugan-Scanner/1.0"
+    },
+    "proxy": {
+      "url": "http://proxy.internal:8080",
+      "username": "proxy-user",
+      "password": "proxy-pass",
+      "enabled": true
+    },
+    "retry": {
+      "max_attempts": 3,
+      "initial_delay": 1000,
+      "max_delay": 5000, 
+      "backoff_multiplier": 2.0,
+      "retry_status_codes": [429, 503]
+    }
+  }
+}

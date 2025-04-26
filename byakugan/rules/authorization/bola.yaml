@@ -1,0 +1,74 @@
+vulnerability:
+  id: BYAKUGAN-BOLA-001
+  name: "Broken Object Level Authorization (BOLA)"
+  description: >
+    BOLA/IDOR occurs when an application fails to properly verify that the user
+    has access to the requested object. This rule tests for unauthorized access
+    to resources by manipulating object references.
+  remediation: >
+    - Implement proper authorization checks for each object access
+    - Use indirect object references (GUID instead of sequential IDs)
+    - Validate user permissions against accessed objects
+    - Implement role-based access control (RBAC)
+  references:
+    - "https://owasp.org/API-Security/editions/2023/en/0x00-toc/"
+    - "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html"
+  owasp_category: "API1:2023 Broken Object Level Authorization"
+  cwe: "CWE-639"
+  severity: "High"
+  cvss_score: 8.2
+  cvss_vector: "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N"
+
+configuration:
+  timeout: 15
+  concurrent_limit: 10
+  retry_count: 2
+  rate_limit: 20
+  time_delay: 0
+
+detection:
+  locations:
+    - path_parameters:
+        - id
+        - user_id
+        - account_id
+        - record_id
+    - query_parameters:
+        - id
+        - user
+        - account
+    - body_parameters:
+        - id
+        - userId
+        - accountId
+  strategies:
+    - name: "ID Enumeration"
+      description: "Test access to different object IDs"
+      active: true
+    - name: "Role Switching"
+      description: "Test access with different user roles"
+      active: true
+
+payloads:
+  id_manipulation:
+    - template: "{{base_id + 1}}"
+    - template: "{{base_id - 1}}"
+    - template: "{{random_id}}"
+  role_based:
+    - template: "{{admin_id}}"
+    - template: "{{other_user_id}}"
+
+verification:
+  techniques:
+    - type: "response_code"
+      codes: [200, 201, 202, 203, 204]
+      description: "Check if unauthorized access is allowed"
+    - type: "content_similarity"
+      threshold: 0.8
+      description: "Compare response with authorized request"
+    - type: "data_exposure"
+      patterns:
+        - "email"
+        - "phone"
+        - "address"
+      description: "Check for sensitive data exposure"

@@ -1,0 +1,115 @@
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background shield -->
+  <path d="M250 30 L450 120 L450 280 C450 380 350 470 250 470 C150 470 50 380 50 280 L50 120 Z" fill="#1a1a2e" />
+  
+  <!-- Inner shield -->
+  <path d="M250 60 L410 135 L410 270 C410 355 330 430 250 430 C170 430 90 355 90 270 L90 135 Z" fill="#16213e" />
+  
+  <!-- Scan lines - outer ripple -->
+  <circle cx="250" cy="250" r="170" fill="none" stroke="#7579e7" stroke-width="2" stroke-dasharray="8,4" opacity="0.7">
+    <animate attributeName="r" from="170" to="180" dur="3s" repeatCount="indefinite" />
+    <animate attributeName="opacity" from="0.7" to="0.3" dur="3s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Middle scan ripple -->
+  <circle cx="250" cy="250" r="130" fill="none" stroke="#9ab3f5" stroke-width="2" stroke-dasharray="6,3" opacity="0.6">
+    <animate attributeName="r" from="130" to="140" dur="2.5s" repeatCount="indefinite" />
+    <animate attributeName="opacity" from="0.6" to="0.2" dur="2.5s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Inner scan ripple -->
+  <circle cx="250" cy="250" r="90" fill="none" stroke="#b8c0ff" stroke-width="2" stroke-dasharray="4,2" opacity="0.5">
+    <animate attributeName="r" from="90" to="100" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="opacity" from="0.5" to="0.1" dur="2s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Digital circuit lines -->
+  <path d="M140 250 H220 M280 250 H360 M250 140 V220 M250 280 V360" 
+        stroke="#a2a8d3" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M180 180 L220 220 M320 180 L280 220 M180 320 L220 280 M320 320 L280 280" 
+        stroke="#a2a8d3" stroke-width="1.5" stroke-linecap="round" />
+  
+  <!-- Connection nodes -->
+  <circle cx="140" cy="250" r="3" fill="#edf2fb" />
+  <circle cx="360" cy="250" r="3" fill="#edf2fb" />
+  <circle cx="250" cy="140" r="3" fill="#edf2fb" />
+  <circle cx="250" cy="360" r="3" fill="#edf2fb" />
+  <circle cx="180" cy="180" r="3" fill="#edf2fb" />
+  <circle cx="320" cy="180" r="3" fill="#edf2fb" />
+  <circle cx="180" cy="320" r="3" fill="#edf2fb" />
+  <circle cx="320" cy="320" r="3" fill="#edf2fb" />
+  
+  <!-- Byakugan eye -->
+  <circle cx="250" cy="250" r="70" fill="#e6e6fa" />
+  <circle cx="250" cy="250" r="60" fill="#d8deff" />
+  
+  <!-- Pupil and veins -->
+  <circle cx="250" cy="250" r="25" fill="#7579e7" />
+  <circle cx="250" cy="250" r="10" fill="#16213e" />
+  
+  <!-- Eye veins -->
+  <path d="M250 180 C230 200 210 210 190 215" stroke="#7579e7" stroke-width="2" fill="none" />
+  <path d="M250 180 C270 200 290 210 310 215" stroke="#7579e7" stroke-width="2" fill="none" />
+  <path d="M250 320 C230 300 210 290 190 285" stroke="#7579e7" stroke-width="2" fill="none" />
+  <path d="M250 320 C270 300 290 290 310 285" stroke="#7579e7" stroke-width="2" fill="none" />
+  <path d="M180 250 C200 245 220 240 240 240" stroke="#7579e7" stroke-width="2" fill="none" />
+  <path d="M320 250 C300 245 280 240 260 240" stroke="#7579e7" stroke-width="2" fill="none" />
+  
+  <!-- Mini circuits in the pupil -->
+  <circle cx="250" cy="250" r="18" fill="none" stroke="#a2a8d3" stroke-width="0.8" stroke-dasharray="2,1" />
+  
+  <!-- API Icons in circular formation around the eye -->
+  
+  <!-- OpenAPI/Swagger Icon -->
+  <g transform="translate(120, 130) scale(0.5)">
+    <circle cx="0" cy="0" r="25" fill="#173f5f" stroke="#a2a8d3" stroke-width="1" />
+    <path d="M-15,-5 L15,-5 L15,5 L-15,5 Z" fill="#38b2ac" />
+    <path d="M-10,-15 L10,-15 L0,-5 Z" fill="#38b2ac" />
+    <path d="M-10,15 L10,15 L0,5 Z" fill="#38b2ac" />
+  </g>
+  
+  <!-- GraphQL Icon -->
+  <g transform="translate(380, 130) scale(0.5)">
+    <circle cx="0" cy="0" r="25" fill="#173f5f" stroke="#a2a8d3" stroke-width="1" />
+    <path d="M0,-15 L13,7.5 L-13,7.5 Z" fill="#e535ab" stroke="#e535ab" stroke-width="1" fill-opacity="0.7" />
+    <path d="M0,15 L13,-7.5 L-13,-7.5 Z" fill="#e535ab" stroke="#e535ab" stroke-width="1" fill-opacity="0.7" />
+  </g>
+  
+  <!-- REST API Icon -->
+  <g transform="translate(120, 370) scale(0.5)">
+    <circle cx="0" cy="0" r="25" fill="#173f5f" stroke="#a2a8d3" stroke-width="1" />
+    <path d="M-12,-10 L12,-10 L12,-3 L-12,-3 Z" fill="#61dafb" />
+    <path d="M-12,-1 L12,-1 L12,6 L-12,6 Z" fill="#61dafb" />
+    <path d="M-12,8 L4,8 L4,15 L-12,15 Z" fill="#61dafb" />
+  </g>
+  
+  <!-- gRPC Icon -->
+  <g transform="translate(380, 370) scale(0.5)">
+    <circle cx="0" cy="0" r="25" fill="#173f5f" stroke="#a2a8d3" stroke-width="1" />
+    <path d="M-10,-10 L10,-10 C15,-10 15,-5 10,-5 L-10,-5 Z" fill="#244b5a" />
+    <path d="M-10,-3 L10,-3 C15,-3 15,2 10,2 L-10,2 Z" fill="#244b5a" />
+    <path d="M-10,4 L10,4 C15,4 15,9 10,9 L-10,9 Z" fill="#244b5a" />
+    <rect x="-15" y="-10" width="3" height="19" fill="#00b8aa" />
+  </g>
+  
+  <!-- SOAP Icon -->
+  <g transform="translate(250, 100) scale(0.5)">
+    <circle cx="0" cy="0" r="25" fill="#173f5f" stroke="#a2a8d3" stroke-width="1" />
+    <ellipse cx="0" cy="0" rx="15" ry="10" fill="none" stroke="#a2a8d3" stroke-width="2" />
+    <path d="M-8,0 C-8,-5 8,-5 8,0 C8,5 -8,5 -8,0 Z" fill="#a2a8d3" fill-opacity="0.3" />
+  </g>
+  
+  <!-- Postman Icon -->
+  <g transform="translate(250, 400) scale(0.5)">
+    <circle cx="0" cy="0" r="25" fill="#173f5f" stroke="#a2a8d3" stroke-width="1" />
+    <path d="M-8,-8 L8,8 M-8,8 L8,-8" stroke="#ff6c37" stroke-width="3" stroke-linecap="round" />
+    <circle cx="0" cy="0" r="5" fill="#ff6c37" />
+  </g>
+  
+  <!-- Text -->
+  <text x="250" y="435" font-family="'Courier New', monospace" font-size="28" fill="#e6e6fa" text-anchor="middle" font-weight="bold">BYAKUGAN</text>
+  <text x="250" y="455" font-family="'Courier New', monospace" font-size="10" fill="#a2a8d3" text-anchor="middle">API SECURITY SCANNER</text>
+  
+  <!-- API Support text -->
+  <text x="250" y="470" font-family="'Courier New', monospace" font-size="8" fill="#9ab3f5" text-anchor="middle">OPENAPI · GRAPHQL · REST · GRPC · SOAP · POSTMAN</text>
+</svg>

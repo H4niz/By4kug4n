@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Server: nginx/1.18.0
+Date: Mon, 17 Mar 2024 10:00:00 GMT
+
+<html>
+<body>
+    <div class="user-input">
+        <script>alert('XSS Test');</script>
+        Hello user!
+    </div>
+    <a href="javascript:alert('test')">Click me</a>
+</body>
+</html>

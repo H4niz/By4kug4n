@@ -1,0 +1,20 @@
+{
+  "patterns": [
+    {
+      "id": "API-001",
+      "type": "information_disclosure",
+      "pattern": "(?i)(stack trace:|debug_info|debug_mode|trace_id)",
+      "description": "API Debug Information Disclosure",
+      "confidence": 0.8,
+      "tags": ["api", "debug"]
+    },
+    {
+      "id": "API-002",
+      "type": "path_disclosure",
+      "pattern": "(?i)(/var/www/|/app/|/usr/src/|[A-Za-z]:\\\\)",
+      "description": "Path Information Disclosure",
+      "confidence": 0.7,
+      "tags": ["api", "path"]
+    }
+  ]
+}

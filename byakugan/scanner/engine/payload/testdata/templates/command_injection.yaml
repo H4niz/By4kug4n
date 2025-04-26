@@ -1,0 +1,16 @@
+templates:
+  - id: "CMD-INJECTION"
+    type: "cmd_injection"
+    description: "Command injection patterns"
+    templates:
+      - "{{ .command }} | cat /etc/passwd"
+      - "{{ .command }} && cat /etc/passwd"
+      - "{{ .command }} ; cat /etc/passwd"
+    variables:
+      command:
+        - "ls"
+        - "whoami"
+    tags:
+      - "cmd_injection"
+    metadata:
+      severity: "critical"

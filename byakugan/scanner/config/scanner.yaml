@@ -1,0 +1,184 @@
+nodes:
+  - node:
+      id: "scanner-01"
+      name: "Primary Scanner"
+      region: "us-east-1"
+      tags: ["production"]
+      capabilities: ["rest", "graphql"]
+
+    worker_pool:
+      size: 19                  # Number of concurrent workers
+      queue_size: 100          # Task queue buffer size
+      task_timeout: 30s        # Maximum task execution time
+      batch_size: 50               # Số lượng tasks trong một batch
+      retry_count: 3              # Số lần retry cho mỗi task
+      retry_delay: 1s             # Delay giữa các lần retry
+      health_check_interval: 30s  # Interval kiểm tra health của worker
+      metrics_enabled: true       # Enable metrics collection
+      shutdown_timeout: 30s       # Timeout khi shutdown worker pool
+
+    performance:
+      cpu_limit: 50
+      memory_limit: 512
+      network:
+        connections_limit: 200
+
+    http_client:
+      user_agent: "Byakugan Scanner/1.0"
+      follow_redirects: true
+      max_redirects: 5
+      timeout:
+        connect: 5s
+        read: 30s 
+        write: 5s
+      tls:
+        verify_certs: true
+        min_version: "TLS1.2"
+      connection_pool:
+        max_idle_conns: 100
+        max_conns_per_host: 50
+        idle_conn_timeout: 90s
+        tls_handshake_timeout: 10s
+      retry_policy:
+        max_attempts: 3
+        initial_interval: 100ms
+        max_interval: 2s
+        multiplier: 2.0
+      circuit_breaker:
+        enabled: true
+        threshold: 5
+        interval: 30s
+        timeout: 10s
+
+    rate_limiting:
+      enabled: true
+      strategy: "adaptive"
+      initial_rate: 50
+      max_rate: 200
+      min_rate: 10
+      backoff_factor: 2.0
+
+    proxy:
+      enabled: true
+      proxies:
+        - "http://node1-proxy1.example.com:8080"
+        - "http://node1-proxy2.example.com:8080"
+      rotation:
+        strategy: random # random, round-robin, weighted
+        interval: 1m
+        per_worker: true  # assign dedicated proxies to workers
+
+    logging:
+      log_path: "../../../byakugan/logs/nodes"  # Node specific logs
+      max_size: 100
+      max_age: 24h
+      compress: true
+      buffer_size: 4096          # Buffer size cho logging
+      async_write: true          # Enable async logging
+      queue_size: 1000          # Queue size cho async logging
+      flush_interval: 5s        # Interval để flush log buffer
+      trace:
+        enabled: true
+        sampling_rate: 0.1
+      metrics:
+        enabled: true
+        interval: 10s
+        prefix: "byakugan_scanner"
+
+logging:
+  level: "debug"
+  format: "json"
+  log_path: "../../../../byakugan/logs"
+  rotation:
+    max_size_mb: 100
+    max_files: 5
+    compress: true
+    max_age: 168h  # 7 days
+
+  # Thêm cấu hình cụ thể cho từng component
+  components:
+    detector:
+      log_path: "../../../../byakugan/logs/detector"
+      level: "debug"
+      
+    payload:
+      log_path: "../../../../byakugan/logs/payload"
+      level: "debug"
+      
+    worker:
+      log_path: "../../../../byakugan/logs/worker"
+      level: "debug"
+
+  buffer_size: 4096          # Buffer size cho logging
+  async_write: true          # Enable async logging
+  queue_size: 1000          # Queue size cho async logging
+  flush_interval: 5s        # Interval để flush log buffer
+  trace:
+    enabled: true
+    sampling_rate: 0.1
+  metrics:
+    enabled: true
+    interval: 10s
+    prefix: "byakugan_scanner"
+
+retry:
+  max_attempts: 3
+  initial_delay: 1s
+  max_delay: 10s
+  backoff_multiplier: 2.0
+  retry_on:
+    status_codes: [429, 500, 502, 503, 504]
+    network_errors: true
+    timeouts: true
+
+proxy:
+  enabled: true
+  proxies:
+    - "http://proxy1.example.com:8080"
+    - "http://proxy2.example.com:8080"
+    - "socks5://proxy3.example.com:1080"
+  check_interval: 5m
+  timeout: 10s
+  blacklist_threshold: 3
+  blacklist_duration: 30m
+  rotation:
+    strategy: random
+    interval: 5m
+    per_worker: true
+
+communication:
+  grpc:
+    address: "localhost:50051"  # Thay vì server_address
+    max_message_size: 10485760
+    keep_alive:  # Thay vì keepalive
+      enabled: true  # Thay vì enable 
+      time: 30s
+      timeout: 10s
+      idle_timeout: 15m  # Thay vì max_connection_idle
+      max_age: 30m
+      grace_period: 5s
+      permit_without_stream: true
+    connection_pool:
+      max_size: 50
+      min_idle: 5
+      max_idle: 20
+      idle_timeout: 5m
+    retry:
+      enabled: true
+      max_attempts: 3
+      initial_backoff: 100ms
+      max_backoff: 2s
+      backoff_multiplier: 2.0
+    metrics:
+      enabled: true
+      interval: 10s
+    health_check:
+      enabled: true
+      interval: 30s
+      timeout: 5s
+    compression:
+      enabled: true
+      level: "best_speed"
+    logging:
+      level: "info"
+      path: "../../../byakugan/grpc/server.log"

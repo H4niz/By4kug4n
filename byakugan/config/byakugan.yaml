@@ -1,0 +1,163 @@
+# Core Configuration
+core:
+  debug: false
+  log_level: "info"  # debug, info, warning, error
+  log_file: "byakugan.log"
+  temp_dir: "tmp"
+
+# Parser Settings
+parser:
+  supported_formats:
+    - "openapi"
+    - "swagger" 
+    - "postman"
+    - "graphql"
+    - "soap"
+    - "grpc"
+  max_file_size: 10485760  # 10MB
+  auto_detect_format: true
+  resolve_references: true
+
+# Rule Engine Settings
+rule_engine:
+  rules_dir: "rules"
+  custom_rules_dir: "custom_rules"
+  rule_timeout: 30
+  rules:
+    enabled_categories:
+      - "authentication"
+      - "authorization" 
+      - "injection"
+      - "business_logic"
+    severity_threshold: "low"  # low, medium, high, critical
+    max_payload_size: 8192  # bytes
+
+# Scanner Settings
+scanner:
+  node:
+    id: "scanner-01"
+    name: "Primary Scanner"
+    region: "default"
+    tags: 
+      - "production"
+  performance:
+    cpu_limit: 80  # percent
+    memory_limit: 2048  # MB
+    bandwidth_limit: 100  # Mbps
+    connections_limit: 500
+  http_client:
+    user_agent: "Byakugan Scanner v1.0.0"
+    follow_redirects: true
+    max_redirects: 10
+    timeouts:
+      connect: 5
+      read: 30
+      write: 5
+    keep_alive: true
+    verify_ssl: false
+  rate_limiting:
+    enabled: true
+    strategy: "adaptive"  # fixed, adaptive
+    initial_rate: 50
+    max_rate: 200
+    min_rate: 10
+    backoff_factor: 1.5
+
+# Communication Settings
+comms:
+  grpc:
+    host: "localhost"
+    port: 50051
+    max_workers: 10
+    timeout: 30
+    max_message_size: 10485760  # 10MB
+  connection:
+    timeout: 30
+    retries: 3
+    retry_delay: 5
+  security:
+    tls_enabled: false
+    tls_cert_path: null
+    tls_key_path: null
+
+# Task Management
+task:
+  max_concurrent_tasks: 100
+  task_queue_size: 1000
+  task_timeout: 300  # 5 minutes
+  batch_size: 10
+  priorities:
+    critical: 1
+    high: 2
+    medium: 3
+    low: 4
+
+# Authentication
+auth:
+  methods:
+    - type: "oauth2"
+      enabled: true
+      config:
+        client_id: ""
+        client_secret: ""
+        token_url: ""
+        scopes: []
+    - type: "bearer"
+      enabled: true
+    - type: "basic"
+      enabled: true
+    - type: "apikey"
+      enabled: true
+      location: "header"  # header, query
+      name: "X-API-Key"
+  session:
+    timeout: 3600  # 1 hour
+    renew_before: 300  # 5 minutes
+    max_retries: 3
+
+# Reporting
+reporting:
+  formats:
+    - "json"
+    - "html"
+    - "pdf"
+    - "csv"
+  output_dir: "reports"
+  include_evidence: true
+  max_evidence_size: 5120  # bytes
+  evidence_redaction:
+    enabled: true
+    patterns:
+      - "password"
+      - "token"
+      - "key"
+      - "secret"
+  metrics:
+    include_scan_time: true
+    include_success_rate: true
+    include_coverage: true
+
+# Integration
+integrations:
+  jira:
+    enabled: false
+    url: ""
+    username: ""
+    project_key: ""
+    issue_type: "Bug"
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: ""
+  github:
+    enabled: false
+    token: ""
+    repository: ""
+
+# Plugins
+plugins:
+  enabled: true
+  directory: "plugins"
+  auto_load: true
+  allow_unsigned: false
+  blacklist: []

@@ -1,0 +1,45 @@
+nodes:
+  - node:
+      id: "scanner-01"
+      name: "Scanner Node 1" 
+      region: "us-east-1"
+      tags:
+        - "production"
+        - "high-priority"
+      capabilities:
+        - "sqli"
+        - "xss"
+        - "path-traversal"
+        - "jwt"
+
+    performance:
+      cpu_limit: 4
+      memory_limit: 8192
+      network:
+        bandwidth_limit: 100
+        connections_limit: 1000
+
+    worker_pool:
+      size: 10
+      queue_size: 100
+      task_priority_levels: 3
+      task_timeout: "30s"
+
+    http_client:
+      user_agent: "Byakugan-Scanner/1.0"
+      follow_redirects: true
+      max_redirects: 5
+      keep_alive: true
+      keep_alive_idle_timeout: 60
+      timeout:
+        connect: "5s"
+        read: "10s" 
+        write: "5s"
+
+    rate_limiting:
+      enabled: true
+      strategy: "adaptive"
+      initial_rate: 10
+      max_rate: 50
+      min_rate: 5
+      backoff_factor: 1.5

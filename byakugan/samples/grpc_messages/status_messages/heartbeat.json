@@ -1,0 +1,10 @@
+{
+    "node_id": "scanner-01",
+    "metrics": {
+      "cpu_usage": "45.2",
+      "memory_usage": "512MB",
+      "active_tasks": "3",
+      "queue_size": "10",
+      "success_rate": "98.5"
+    }
+  }

@@ -1,0 +1,33 @@
+parser:
+  # Parameter patterns that indicate potential vulnerabilities
+  vulnerable_param_patterns:
+    - "search"
+    - "query"
+    - "filter"
+    - "where"
+    - "sql"
+    
+  # Injection point types
+  injection_types:
+    - sql_injection
+    - xss
+    - path_traversal
+    - command_injection
+    
+  # Parameter type inference rules
+  type_inference:
+    id: integer
+    email: string
+    phone: string
+    date: date
+    amount: number
+    
+  # Schema resolution settings  
+  schema_resolution:
+    max_depth: 5
+    circular_ref_detection: true
+    
+logging:
+  file: logs/parser.log
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

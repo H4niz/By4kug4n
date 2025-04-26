@@ -1,0 +1,14 @@
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Server: nginx/1.18.0
+X-Powered-By: PHP/7.4.3
+Date: Mon, 17 Mar 2024 10:00:00 GMT
+
+{
+    "error": true,
+    "message": "Database Error",
+    "details": "MySQL Error [1064]: You have an error in your SQL syntax near 'WHERE id = \"1\"'' at line 1",
+    "query": "SELECT * FROM users WHERE id = \"1\"'",
+    "stack_trace": "Error: at Query.execute (/app/db/mysql.js:123)\n at API.getUser (/app/api/users.js:45)",
+    "debug_mode": true
+}

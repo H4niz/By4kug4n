@@ -1,0 +1,22 @@
+{
+  "task_id": "SQLI-SCAN-001",
+  "success": true,
+  "findings": [
+    {
+      "id": "SQLI-FINDING-001",
+      "rule_id": "SQLI-001",
+      "severity": "HIGH",
+      "evidence": {
+        "data": {
+          "request": "POST /users/login HTTP/1.1\nContent-Type: application/json\n\n{\"username\":\"' OR '1'='1\",\"password\":\"test123\"}",
+          "response": "HTTP/1.1 500 Internal Server Error\nContent-Type: application/json\n\n{\"error\":\"You have an error in your SQL syntax\"}",
+          "injection_point": "body.username",
+          "payload": "' OR '1'='1",
+          "matched_pattern": "error in your SQL syntax"
+        },
+        "description": "SQL injection vulnerability detected. Server responded with SQL error message when malicious payload was injected."
+      }
+    }
+  ],
+  "error_details": ""
+}

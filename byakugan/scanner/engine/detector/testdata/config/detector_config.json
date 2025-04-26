@@ -1,0 +1,29 @@
+{
+  "detector": {
+    "max_body_size": 2097152,
+    "enable_screenshots": true,
+    "confidence_threshold": 0.7,
+    "analysis": {
+      "response_size_threshold": 1048576,
+      "error_keywords": [
+        "error",
+        "exception",
+        "failed",
+        "invalid",
+        "unauthorized"
+      ],
+      "sensitive_headers": [
+        "Authorization",
+        "Cookie",
+        "X-API-Key",
+        "Session-Token"
+      ]
+    },
+    "patterns": {
+      "load_default_patterns": true,
+      "pattern_directories": [
+        "./testdata/patterns"
+      ]
+    }
+  }
+}

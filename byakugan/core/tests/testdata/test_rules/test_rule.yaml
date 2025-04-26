@@ -1,0 +1,16 @@
+id: TEST-001
+name: Test Rule
+severity: high
+details:
+  category: authentication
+  description: Test rule for scanning
+detection:
+  pattern: "error"
+  location: "response_body"
+validation:
+  success_conditions:
+    status_codes: [200]
+    response_patterns: ["success"]
+  evidence_collection:
+    save_request: true
+    save_response: true

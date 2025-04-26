@@ -1,0 +1,22 @@
+{
+  "samples": [
+    {
+      "id": "BASE64-TEST",
+      "input": "<script>alert(1)</script>",
+      "transformations": ["base64"],
+      "expected": "PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg=="
+    },
+    {
+      "id": "URL-TEST",
+      "input": "' OR '1'='1",
+      "transformations": ["url"],
+      "expected": "%27%20OR%20%271%27%3D%271"
+    },
+    {
+      "id": "MULTI-ENCODE",
+      "input": "<img src=x onerror=alert(1)>",
+      "transformations": ["base64", "url"],
+      "expected": "PGltZyBzcmM9eCBvbmVycm9yPWFsZXJ0KDEpPg%3D%3D"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+templates:
+  - id: "PATH-TRAVERSAL-UNIX"
+    type: "path_traversal" 
+    description: "Unix path traversal patterns"
+    templates:
+      - "../../{{ .file }}"
+      - "/../../{{ .file }}"
+      - "....//....//{{ .file }}"
+    variables:
+      file:
+        - "etc/passwd"
+        - "etc/shadow"
+    tags:
+      - "path_traversal"
+      - "unix"
+    metadata:
+      severity: "high"

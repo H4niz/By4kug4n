@@ -1,0 +1,78 @@
+vulnerability:
+  id: BYAKUGAN-SQLI-001
+  name: "SQL Injection - Error Based Detection"
+  description: >
+    SQL injection occurs when untrusted data is inserted into SQL queries without proper sanitization.
+    This rule tests for error-based SQL injection vulnerabilities by sending malicious SQL payloads.
+  remediation: >
+    - Use parameterized queries or prepared statements
+    - Apply input validation and sanitization
+    - Use an ORM with built-in SQL injection protection
+    - Implement proper escaping for special characters
+  references:
+    - "https://owasp.org/www-project-top-ten/2021/A03_2021-Injection"
+    - "https://portswigger.net/web-security/sql-injection"
+  owasp_category: "API9:2023 Improper Asset Management"
+  cwe: "CWE-89"
+  severity: "Critical"
+  cvss_score: 9.8
+  cvss_vector: "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+
+configuration:
+  timeout: 30
+  concurrent_limit: 5
+  retry_count: 3
+  rate_limit: 10
+  time_delay: 100
+
+detection:
+  locations:
+    - query_parameters:
+        - search
+        - filter
+        - query
+        - id
+    - path_parameters:
+        - id
+        - user_id
+    - body_parameters:
+        - where
+        - conditions
+        - filter
+  patterns:
+    - "SQL syntax.*MySQL"
+    - "Warning.*mysql_"
+    - "PostgreSQL.*ERROR"
+    - "ORA-[0-9][0-9][0-9][0-9]"
+    - "Microsoft SQL Server"
+  strategies:
+    - name: "Error Based Detection"
+      description: "Detect SQL errors in response"
+      active: true
+    - name: "Time Based Detection" 
+      description: "Detect delays in response time"
+      active: true
+
+payloads:
+  error_based:
+    - "' OR '1'='1"
+    - "1' ORDER BY 1--"
+    - "1' UNION SELECT NULL--"
+    - "1; SELECT * FROM users--"
+  time_based:
+    - "1' WAITFOR DELAY '0:0:5'--"
+    - "1' AND SLEEP(5)--"
+    - "1') AND SLEEP(5)--"
+
+verification:
+  techniques:
+    - type: "pattern_match"
+      patterns:
+        - "SQL syntax"
+        - "MySQL"
+        - "ORA-"
+        - "PostgreSQL"
+      description: "Check for SQL error messages"
+    - type: "time_based"
+      delay: 5000
+      description: "Check for time delays in responses"

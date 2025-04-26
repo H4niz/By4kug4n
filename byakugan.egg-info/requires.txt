@@ -1,0 +1,5 @@
+pyyaml>=6.0.1
+graphql-core>=3.2.3
+xmltodict>=0.13.0
+PyJWT>=2.8.0
+cryptography>=41.0.0

@@ -1,0 +1,95 @@
+openapi: "3.0.0"
+info:
+  title: "Pet Store API"
+  version: "1.0.0"
+  description: "A sample API for pet store management"
+
+servers:
+  - url: https://api.petstore.example/v1
+
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: X-API-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of pets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+    
+    post:
+      summary: Create a pet
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPet'
+      responses:
+        '201':
+          description: Pet created
+
+  /pets/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    
+    get:
+      summary: Get pet by ID
+      responses:
+        '200':
+          description: Pet found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+
+components:
+  schemas:
+    Pet:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        tag:
+          type: string
+    
+    NewPet:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        tag:
+          type: string
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

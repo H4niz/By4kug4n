@@ -1,0 +1,176 @@
+syntax = "proto3";
+
+package scanner;
+
+option go_package = ";proto";
+
+// Scanner service definition
+service ScannerService {
+    rpc ExecuteScan(ScanTask) returns (ScanResult) {}
+    rpc StreamResults(stream ScanResult) returns (stream StreamAck) {}
+    rpc GetTaskStatus(TaskStatusRequest) returns (TaskStatus) {}
+    rpc GetScanStatus(StatusRequest) returns (ScanStatus) {}
+    rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse) {}
+}
+
+// Core message types
+message ScanTask {
+    string id = 1;
+    Target target = 2;
+    AuthContext auth_context = 3;
+    Payload payload = 4;
+    Validation validation = 5;
+    RuleContext rule_context = 6;
+    TaskConfig config = 7;
+}
+
+message Target {
+    string url = 1;
+    string method = 2;
+    string protocol = 3;
+}
+
+message AuthContext {
+    string type = 1;
+    string token = 2;
+    int64 expires_at = 3;
+    map<string, string> headers = 4;
+}
+
+message Payload {
+    map<string, string> headers = 1;
+    string body = 2;
+    map<string, string> query_params = 3;
+    repeated InsertionPoint insertion_points = 4;
+}
+
+message InsertionPoint {
+    string location = 1;
+    string type = 2;
+    repeated string payloads = 3;
+    string encoding = 4;
+}
+
+message RuleContext {
+    string id = 1;
+    string severity = 2;
+    string category = 3;
+    repeated string required_evidence = 4;
+}
+
+message TaskConfig {
+    int32 timeout = 1;
+    int32 max_retries = 2;
+    bool follow_redirects = 3;
+    map<string, string> headers = 4;
+    ProxyConfig proxy = 5;
+    RetryConfig retry = 6;
+}
+
+message ProxyConfig {
+    string url = 1;
+    string username = 2;
+    string password = 3;
+    bool enabled = 4;
+}
+
+message RetryConfig {
+    int32 max_attempts = 1;
+    int32 initial_delay = 2;
+    int32 max_delay = 3;
+    repeated int32 retry_status_codes = 4;
+}
+
+message Validation {
+    SuccessConditions success_conditions = 1;
+    EvidenceCollection evidence_collection = 2;
+}
+
+message SuccessConditions {
+    repeated int32 status_codes = 1;
+    repeated string response_patterns = 2;
+}
+
+message EvidenceCollection {
+    bool save_request = 1;
+    bool save_response = 2;
+    bool screenshot = 3;
+}
+
+message ScanResult {
+    string task_id = 1;
+    bool success = 2;
+    repeated Finding findings = 3;
+    Evidence evidence = 4;
+    int64 timestamp = 5;
+    map<string, string> metadata = 6;
+}
+
+message Finding {
+    string id = 1;
+    string rule_id = 2;
+    string severity = 3;
+    string title = 4;
+    string details = 5;
+    repeated Evidence evidence = 6;
+}
+
+message Evidence {
+    HttpRequest request = 1;
+    HttpResponse response = 2;
+    map<string, string> data = 3;
+    int64 timestamp = 4;
+    bool validated = 5;
+}
+
+message HttpRequest {
+    string url = 1;
+    string method = 2;
+    map<string, string> headers = 3;
+    string body = 4;
+}
+
+message HttpResponse {
+    int32 status_code = 1;
+    map<string, string> headers = 2;
+    string body = 3;
+    int64 response_time = 4;
+}
+
+message StreamAck {
+    bool success = 1;
+    string message = 2;
+}
+
+message TaskStatusRequest {
+    string task_id = 1;
+}
+
+message TaskStatus {
+    string task_id = 1;
+    string status = 2;
+    bool success = 3;
+    string message = 4;
+    float progress = 5;
+}
+
+message HeartbeatRequest {
+    string node_id = 1;
+    map<string, string> metrics = 2;
+}
+
+message HeartbeatResponse {
+    bool alive = 1;
+    string message = 2;
+}
+
+message StatusRequest {
+    string task_id = 1;
+}
+
+message ScanStatus {
+    string task_id = 1;
+    string status = 2;
+    string error = 3;
+    float progress = 4;
+}

@@ -1,0 +1,7 @@
+{
+    "task_id": "SQLI-SCAN-001",
+    "status": "IN_PROGRESS",
+    "success": true,
+    "message": "Scanning endpoint 3/10 - Testing SQL injection payloads",
+    "progress": 0.3
+  }

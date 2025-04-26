@@ -1,0 +1,18 @@
+{
+  "patterns": [
+    {
+      "id": "XSS-001",
+      "type": "xss",
+      "pattern": "<script[^>]*>[\\s\\S]*?<\\/script>",
+      "description": "Script Tag Detection",
+      "tags": ["xss", "script-injection"]
+    },
+    {
+      "id": "XSS-002",
+      "type": "xss",
+      "pattern": "javascript:[^\\s\"']*",
+      "description": "JavaScript Protocol Detection",
+      "tags": ["xss", "javascript-protocol"]
+    }
+  ]
+}

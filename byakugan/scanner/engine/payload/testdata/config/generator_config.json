@@ -1,0 +1,29 @@
+{
+  "generator": {
+    "template_path": "../../templates",
+    "cache_size": 1000,
+    "template_directories": [
+      "./testdata/templates"
+    ],
+    "default_transformations": {
+      "xss": ["html"],
+      "sql_injection": ["sql"],
+      "bola": ["url"],
+      "mass_assignment": ["json"]
+    },
+    "max_payload_size": 8192,
+    "encodings": ["none", "url", "base64"],
+    "template_types": ["sql_injection", "xss", "command_injection"],
+    "templating": {
+      "max_recursion": 3,
+      "enable_functions": true,
+      "functions": [
+        "random",
+        "sequential",
+        "base64",
+        "md5",
+        "sha1"
+      ]
+    }
+  }
+}

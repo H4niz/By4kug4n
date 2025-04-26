@@ -1,0 +1,29 @@
+{
+  "patterns": [
+    {
+      "id": "SQLI-001",
+      "type": "sql_injection",
+      "payload_type": "sql_injection",
+      "pattern": "(?i)(sql syntax|mysql_error|ORA-[0-9]{4}|postgresql error)",
+      "description": "SQL Error Message Detection",
+      "confidence": 0.8,
+      "tags": ["sql", "error-disclosure"]
+    },
+    {
+      "id": "SQLI-002",
+      "type": "sql_injection",
+      "pattern": "(?i)(SELECT.*FROM.*WHERE|UPDATE.*SET|INSERT INTO|DELETE FROM).*",
+      "description": "SQL Query Exposure",
+      "confidence": 0.9,
+      "tags": ["sql", "query-exposure"]
+    },
+    {
+      "id": "SQLI-003",
+      "type": "sql_injection",
+      "pattern": "(?i)(stack trace:.*sql|sqlstate|debug_info.*sql)",
+      "description": "SQL Debug Information",
+      "confidence": 0.7,
+      "tags": ["sql", "debug-info"]
+    }
+  ]
+}

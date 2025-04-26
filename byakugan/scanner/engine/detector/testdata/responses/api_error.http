@@ -1,0 +1,12 @@
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Server: nginx/1.18.0
+Date: Mon, 17 Mar 2024 10:00:00 GMT
+
+{
+    "error": true,
+    "message": "Internal Server Error",
+    "stack": "Error: Cannot read property 'id' of undefined\n    at Object.getUser (/app/services/user.js:45:23)\n    at processRequest (/app/routes/api.js:102:45)",
+    "trace_id": "abc123",
+    "debug_mode": true
+}

